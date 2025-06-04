@@ -1,28 +1,20 @@
-
 import java.awt.event.KeyEvent;
 
-
-
-public class ventanaNuevo extends javax.swing.JFrame
+public class CrearPartido extends javax.swing.JFrame
 {
-   
-    
-    private ventanaPrincipal v;
-    
-   
-    public ventanaNuevo() 
+    private Apuesta v;  // ventanaPrincipal renombrada a Apuesta
+
+    public CrearPartido() 
     {
         initComponents();
     }
 
-   
-    public ventanaNuevo(ventanaPrincipal ventana) 
+    public CrearPartido(Apuesta ventana) 
     {
         initComponents();
         v = ventana;
     }
-    
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,31 +62,31 @@ public class ventanaNuevo extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void agregarPartido(String p)
+    /**
+     * Añade un partido a la ventana principal (Apuesta)
+     * @param p nombre del partido
+     */
+    public void añadePartido(String p)
     {
-        v.agregarPartido(p);
+        v.partidoNuevo(p);
         tPartido.setText("");
         tPartido.requestFocus();
     }
-    
+
     private void bAgregarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarPartidoActionPerformed
-        agregarPartido(tPartido.getText());
+        añadePartido(tPartido.getText());
     }//GEN-LAST:event_bAgregarPartidoActionPerformed
 
     private void tPartidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPartidoKeyPressed
         if( evt.getKeyCode() == KeyEvent.VK_ENTER )
         {
-            agregarPartido(tPartido.getText());
+            añadePartido(tPartido.getText());
         }
     }//GEN-LAST:event_tPartidoKeyPressed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -102,31 +94,24 @@ public class ventanaNuevo extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(CrearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaNuevo().setVisible(true);
+                new CrearPartido().setVisible(true);
             }
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton bAgregarPartido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel pFuncionalidad;
     private javax.swing.JPanel pInformacion;
     private javax.swing.JTextField tPartido;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

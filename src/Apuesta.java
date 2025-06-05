@@ -1,6 +1,3 @@
-package src;
-
-
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.WindowConstants;
@@ -11,16 +8,22 @@ import javax.swing.WindowConstants;
  * and open the template in the editor.
  */
 
+/**
+ * La clase Apuesta representa la interfaz gráfica principal para gestionar una quiniela de partidos.
+ * Permite añadir, eliminar y realizar apuestas aleatorias para los partidos listados.
+ */
 public class Apuesta extends javax.swing.JFrame {
 
-   
-    public Apuesta() 
+   /**
+    * Crea una quiniela para realizar apuestas en partidos.
+    */
+    public Apuesta()
     {
         initComponents();
         this.setResizable(Boolean.FALSE);
     }
 
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,6 +126,10 @@ public class Apuesta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método para añadir el boton de nuevo partido.
+     * @param evt será el evento a añadir.
+     */
     private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
         CrearPartido agregarpartido = new CrearPartido(this);
         agregarpartido.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -132,29 +139,48 @@ public class Apuesta extends javax.swing.JFrame {
         agregarpartido.setVisible(Boolean.TRUE);
     }//GEN-LAST:event_bNuevoActionPerformed
 
+    /**
+     * Metodo para añadir botón de eliminar un partido.
+     * @param evt será el evento a eliminar
+     */
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         borraPartido(listaQuiniela.getSelectedIndex());
     }//GEN-LAST:event_bEliminarActionPerformed
 
+    /**
+     * Metodo para añadir botón de resetear la quiniela.
+     * @param evt será el evento a resetear.
+     */
     private void bResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetearActionPerformed
         DefaultListModel modelovacio = new DefaultListModel();
         this.listaQuiniela.setModel(modelovacio);
         this.listaResultados.setModel(modelovacio);
     }//GEN-LAST:event_bResetearActionPerformed
 
-   
+   /**
+    * Método para elegir un número aleatorio truncado de entre dos números.
+    * @param n1 será el primer número entero.
+    * @param n2 será el segundo número entero.
+    * @return un número entero aleatorio.
+    */
     public int cualquiera(int n1, int n2)
     {
         return (int)Math.floor((Math.random()*(n2-n1+1) + n1));
     }
-    
+
+    /**
+     * Método para realizar la apuesta.
+     * Genera resultados aleatorios (1, X, o 2) para cada partido en la lista de partidos
+     * y actualiza la lista de resultados.
+     * @param evt será el evento a realizar.
+     */
     private void bRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRealizarActionPerformed
         DefaultListModel modeloquinielaresuelta = new DefaultListModel();
 
         for(int i = 0; i < this.listaQuiniela.getModel().getSize(); i++)
         {
             String partidoresuelto = this.listaQuiniela.getModel().getElementAt(i).toString();
-            
+
             switch( cualquiera(0,2) )
             {
                 case 0:
@@ -167,15 +193,19 @@ public class Apuesta extends javax.swing.JFrame {
                     partidoresuelto += " -> 2";
                     break;
             }
-            
+
             modeloquinielaresuelta.addElement(partidoresuelto);
         }
 
         this.listaResultados.setModel(modeloquinielaresuelta);
     }//GEN-LAST:event_bRealizarActionPerformed
 
-    
-    public void partidoNuevo(String partido)
+    /**
+     * Método para añadir un partido nuevo a la quiniela.
+     * Añade el partido proporcionado al final de la lista de partidos.
+     * @param partido será el partido a añadir.
+     */
+    public void partidoNuevo (String partido)
     {
         DefaultListModel modelonuevo = new DefaultListModel();
 
@@ -187,9 +217,13 @@ public class Apuesta extends javax.swing.JFrame {
 
         this.listaQuiniela.setModel(modelonuevo);
     }
-    
-  
-    public void borraPartido(int indice)
+
+    /**
+     * Método para eliminar un partido de la quiniela.
+     * Elimina el partido en la posición especificada de ambas listas: partidos y resultados.
+     * @param indice será la posición del partido a eliminar.
+     */
+    public void borraPartido (int indice)
     {
         DefaultListModel modelonuevoquiniela = new DefaultListModel();
         DefaultListModel modelonuevoresultados = new DefaultListModel();
@@ -201,7 +235,7 @@ public class Apuesta extends javax.swing.JFrame {
                 modelonuevoquiniela.addElement(this.listaQuiniela.getModel().getElementAt(i));
             }
         }
-        
+
         for(int i = 0; i < this.listaResultados.getModel().getSize(); i++)
         {
             if( i != indice )
@@ -209,17 +243,20 @@ public class Apuesta extends javax.swing.JFrame {
                 modelonuevoresultados.addElement(this.listaResultados.getModel().getElementAt(i));
             }
         }
-        
+
         this.listaQuiniela.setModel(modelonuevoquiniela);
         this.listaResultados.setModel(modelonuevoresultados);
     }
-    
-   
+
+   /**
+    * Genera una quiniela para realizar apuestas.
+    * @param args Los argumentos de la línea de comandos.
+    */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -237,6 +274,9 @@ public class Apuesta extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Apuesta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
